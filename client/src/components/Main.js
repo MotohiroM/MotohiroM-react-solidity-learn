@@ -11,7 +11,6 @@ const Main = () => {
       return;
     }
     sendTransaction();
-    return;
   };
   return (
     <div className="mainContainer">
