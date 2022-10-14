@@ -38,6 +38,7 @@ module.exports = {
         'error',
         15
       ],
+      'func-style': 0,
       'prefer-arrow-callback': 'off',
       'object-curly-spacing': 0,
       'max-len': 0,
@@ -63,10 +64,8 @@ module.exports = {
                 'after': false
             }
       }}],
-      'func-style': 0,
       'sort-imports': 0,
       'multiline-comment-style': 0,
-      'require-unicode-regexp': 0,
       'no-console': 0,
       'no-restricted-syntax': [
         'error',
@@ -75,12 +74,12 @@ module.exports = {
       'no-duplicate-imports': [
         'error', { 'includeExports': true }
       ],
+      'jsx-a11y/click-events-have-key-events': 0,
+      'jsx-a11y/no-noninteractive-element-interactions': 0,
       'react/function-component-definition': [
         2,
         { 'namedComponents': 'arrow-function' }
       ],
-      'jsx-a11y/click-events-have-key-events': 0,
-      'jsx-a11y/no-noninteractive-element-interactions': 0,
       'react/jsx-no-constructed-context-values': 0,
       'react/no-unescaped-entities': 0,
       'react/jsx-uses-react': 'error',
@@ -92,6 +91,7 @@ module.exports = {
       'react/prop-types': 'off',
       'react/react-in-jsx-scope': 0,
       'require-jsdoc': 0,
+      'require-unicode-regexp': 0,
       '@typescript-eslint/no-var-requires': 0,
     }
 }
