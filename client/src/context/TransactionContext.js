@@ -4,6 +4,7 @@ import { contactABI, contactAddress } from '../utils/connect';
 import { ETHEREUM_METHOD } from '../constants/constants.ts';
 
 export const TransactionContext = createContext();
+const { ethereum } = window;
 
 // スマートコントラクトを取得
 const getSmartContract = () => {
@@ -30,7 +31,7 @@ export const TransactionProvider = ({ children }) => {
   };
 
   const isMetamaskInstalled = () => {
-    if(!window.ethereum) return console.log('please metamask install');
+    if(!ethereum) return console.log('please metamask install');
   };
 
   // metamaskと連携しているか確認

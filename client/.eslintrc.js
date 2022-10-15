@@ -10,6 +10,11 @@ module.exports = {
         "plugin:jsx-a11y/recommended",
         "airbnb"
     ],
+    "settings": {
+      'import/resolver': {
+        typescript: {},
+      },
+    },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaFeatures": {
@@ -39,6 +44,7 @@ module.exports = {
         15
       ],
       'func-style': 0,
+      'import/extensions': 0,
       'import/prefer-default-export': 0,
       'jsx-a11y/click-events-have-key-events': 0,
       'jsx-a11y/no-noninteractive-element-interactions': 0,
