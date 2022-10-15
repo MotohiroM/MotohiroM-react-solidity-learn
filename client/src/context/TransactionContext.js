@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { contactABI, contactAddress } from '../utils/connect';
+import { ETHEREUM_METHOD } from '../constants/constants';
 
 export const TransactionContext = createContext();
 
@@ -37,7 +38,7 @@ export const TransactionProvider = ({ children }) => {
     isMetamaskInstalled();
 
     // metamaskのアカウントIDを取得
-    const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+    const accounts = await window.ethereum.request({ method: ETHEREUM_METHOD.ETH_ACCOUNTS });
     setCrrentAccount(accounts[0]);
   };
 
@@ -46,7 +47,7 @@ export const TransactionProvider = ({ children }) => {
     isMetamaskInstalled();
 
     // metamaskを持っていればコネクトを行う
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
+    await window.ethereum.request({ method: ETHEREUM_METHOD.ETH_REQUEST_ACCOUNTS });
   };
 
   // 実際に通貨の取引を行う
@@ -63,7 +64,7 @@ export const TransactionProvider = ({ children }) => {
     };
 
     const txHash = await window.ethereum.request({ // eslint-disable-line no-unused-vars
-      method: 'eth_sendTransaction',
+      method: ETHEREUM_METHOD.ETH_SEND_TRANSACTION,
       params: [transactionParameters],
     });
 
