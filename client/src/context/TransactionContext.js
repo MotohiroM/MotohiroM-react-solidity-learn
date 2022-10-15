@@ -1,7 +1,7 @@
 import { createContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { contactABI, contactAddress } from '../utils/connect';
-import { ETHEREUM_METHOD } from '../constants/constants';
+import { ETHEREUM_METHOD } from '../constants/constants.ts';
 
 export const TransactionContext = createContext();
 
