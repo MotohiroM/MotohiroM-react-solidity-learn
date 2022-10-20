@@ -1,18 +1,24 @@
 import { createContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { contactABI, contactAddress } from '../utils/connect';
-import { ETHEREUM_METHOD } from '../constants/constants.ts';
+import { isMetamaskInstalled, isMetamaskAccountCreateed, isMetamaskWalConnected } from '../validation/metamask';
+import { ETHEREUM_METHOD } from '../constants/constants';
 
 export const TransactionContext = createContext();
+
 const { ethereum } = window;
 
 // スマートコントラクトを取得
 const getSmartContract = () => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
-  const signer = provider.getSigner();
-  const transactionContract = new ethers.Contract(contactAddress, contactABI, signer);
+  try {
+    const provider = new ethers.providers.Web3Provider(ethereum);
+    const signer = provider.getSigner();
+    const transactionContract = new ethers.Contract(contactAddress, contactABI, signer);
 
-  return transactionContract;
+    return transactionContract;
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 // ウォレット連携など
@@ -30,57 +36,61 @@ export const TransactionProvider = ({ children }) => {
     }));
   };
 
-  const isMetamaskInstalled = () => {
-    if(!ethereum) return console.log('please metamask install');
-  };
-
-  // metamaskと連携しているか確認
-  const isMetamaskWalletConnect = async () => {
-    isMetamaskInstalled();
-
-    // metamaskのアカウントIDを取得
-    const accounts = await window.ethereum.request({ method: ETHEREUM_METHOD.ETH_ACCOUNTS });
-    setCrrentAccount(accounts[0]);
+  /**
+   * metamaskと連携
+   */
+  const metamaskWalletConnect = async () => {
+    if(await isMetamaskAccountCreateed()) {
+      // metamaskのアカウントIDを取得
+      const accounts = await ethereum.request({ method: ETHEREUM_METHOD.ETH_ACCOUNTS });
+      setCrrentAccount(accounts[0]);
+    }
   };
 
   // metamask wallet連携
   const connectWallet = async () => {
-    isMetamaskInstalled();
-
-    // metamaskを持っていればコネクトを行う
-    await window.ethereum.request({ method: ETHEREUM_METHOD.ETH_REQUEST_ACCOUNTS });
+    const walletConnectButtonId = document.getElementById('wallet-connect');
+    if(await isMetamaskWalConnected()) {
+      walletConnectButtonId.disabled = true;
+    } else {
+      walletConnectButtonId.disabled = false;
+    }
   };
 
   // 実際に通貨の取引を行う
   const sendTransaction = async () => {
-    isMetamaskInstalled();
+    if(!(await isMetamaskInstalled())) return false;
     const transactionContract = getSmartContract();
     const { addressTo, amount } = inputFormData;
     const parseAmount = ethers.utils.parseEther(amount)._hex;
     const transactionParameters = {
-      gas: '0',
+      gas: '0.00001',
       to: addressTo,
       from: crrentAccount,
       value: parseAmount,
     };
 
-    const txHash = await window.ethereum.request({ // eslint-disable-line no-unused-vars
+    const txHash = await ethereum.request({ // eslint-disable-line no-unused-vars
       method: ETHEREUM_METHOD.ETH_SEND_TRANSACTION,
       params: [transactionParameters],
     });
 
-    // 送金者から受信者に対して通貨送金が可能
-    const transactionHash = await transactionContract.addToBlockchain(
-      addressTo,
-      parseAmount,
-    );
-    console.log(`ロード中・・・${transactionHash.txHash}`);
-    await transactionHash.wait();
-    console.log(`送金に成功！${transactionHash.txHash}`);
+    try {
+      // 送金者から受信者に対して通貨送金が可能
+      const transactionHash = await transactionContract.addToBlockchain(
+        addressTo,
+        parseAmount,
+      );
+      console.log(`ロード中・・・${transactionHash.txHash}`);
+      await transactionHash.wait();
+      console.log(`送金に成功！${transactionHash.txHash}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    isMetamaskWalletConnect();
+    metamaskWalletConnect();
   }, []);
 
   return (

@@ -79,6 +79,7 @@ module.exports = {
         'error', { 'includeExports': true }
       ],
       'object-curly-spacing': 0,
+      'object-shorthand': [ 'error', 'consistent' ],
       'one-var': [ 'error', 'never' ],
       'prefer-arrow-callback': 'off',
       'react/function-component-definition': [
