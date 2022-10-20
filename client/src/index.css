@@ -91,11 +91,19 @@ nav button:hover {
 /***
 メイン画面
 ***/
+.container {
+  display: flex;
+  padding-top: 25vh;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  height: 100vh;
+}
+
 .mainContainer {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  height: 100%;
+  width: 100%;
 }
 
 .cryptContainer h1 {
@@ -106,7 +114,7 @@ nav button:hover {
   color: white;
 }
 
-.cryptContainer button {
+.cryptContainerButton {
   padding: 2px 20px;
   border: none;
   border-radius: 5px;
@@ -122,7 +130,7 @@ nav button:hover {
   border-right: 2px rgba(40, 40, 40, 0.35) solid;
 }
 
-.cryptContainer button:hover {
+.cryptContainerButton:hover {
   border-radius: 15px;
   backdrop-filter: blur(5px);
   background-color: rgba(76, 61, 138, 0.075);
@@ -131,6 +139,22 @@ nav button:hover {
   border-bottom: 2px rgba(40, 40, 40, 0.35) solid;
   border-right: 2px rgba(40, 40, 40, 0.35) solid;
   color: yellowgreen;
+}
+
+.cryptContainerButton:disabled {
+  padding: 2px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: default;
+  color: white;
+  background-color: #898ecf;
+  transition: all 0.3s;
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 191, 255, 0.075);
+  box-shadow: rgba(0, 0, 0, 0.3) 2px 8px 8px;
+  border: 2px rgba(255, 255, 255, 0.4) solid;
+  border-bottom: 2px rgba(40, 40, 40, 0.35) solid;
+  border-right: 2px rgba(40, 40, 40, 0.35) solid;
 }
 
 .inputContainer {
