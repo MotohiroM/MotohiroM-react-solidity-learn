@@ -1,12 +1,18 @@
-import { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import { ethers } from 'ethers';
 import { contactABI, contactAddress } from '../utils/connect';
 import { isMetamaskInstalled, isMetamaskAccountCreateed, isMetamaskWalConnected } from '../validation/metamask';
 import { ETHEREUM_METHOD } from '../constants/constants';
 
-export const TransactionContext = createContext();
+let connectWallet: any;
+let sendTransaction: any;
+let handleChange: any;
+let inputFormData: any;
+export const TransactionContext = createContext({
+  connectWallet, sendTransaction, handleChange, inputFormData,
+});
 
-const { ethereum } = window;
+const { ethereum } = window as any;
 
 // スマートコントラクトを取得
 const getSmartContract = () => {
@@ -29,7 +35,7 @@ export const TransactionProvider = ({ children }) => {
     amount: '',
   });
 
-  const handleChange = (error, name) => {
+  handleChange = (error: any, name: any) => {
     setInputFormData((prevInputFromData) => ({
       ...prevInputFromData,
       [name]: error.target.value,
@@ -48,17 +54,19 @@ export const TransactionProvider = ({ children }) => {
   };
 
   // metamask wallet連携
-  const connectWallet = async () => {
+  connectWallet = async () => {
     const walletConnectButtonId = document.getElementById('wallet-connect');
-    if(await isMetamaskWalConnected()) {
-      walletConnectButtonId.disabled = true;
-    } else {
-      walletConnectButtonId.disabled = false;
+    if(walletConnectButtonId instanceof HTMLButtonElement) {
+      if(await isMetamaskWalConnected()) {
+        walletConnectButtonId.disabled = true;
+      } else {
+        walletConnectButtonId.disabled = false;
+      }
     }
   };
 
   // 実際に通貨の取引を行う
-  const sendTransaction = async () => {
+  sendTransaction = async () => {
     if(!(await isMetamaskInstalled())) return false;
     const transactionContract = getSmartContract();
     const { addressTo, amount } = inputFormData;
@@ -77,13 +85,15 @@ export const TransactionProvider = ({ children }) => {
 
     try {
       // 送金者から受信者に対して通貨送金が可能
-      const transactionHash = await transactionContract.addToBlockchain(
-        addressTo,
-        parseAmount,
-      );
-      console.log(`ロード中・・・${transactionHash.txHash}`);
-      await transactionHash.wait();
-      console.log(`送金に成功！${transactionHash.txHash}`);
+      if(transactionContract instanceof ethers.Contract) {
+        const transactionHash = await transactionContract.addToBlockchain(
+          addressTo,
+          parseAmount,
+        );
+        console.log(`ロード中・・・${transactionHash.txHash}`);
+        await transactionHash.wait();
+        console.log(`送金に成功！${transactionHash.txHash}`);
+      }
     } catch (error) {
       console.log(error);
     }

@@ -68,16 +68,17 @@ module.exports = {
         }
       ],
       'multiline-comment-style': 0,
+      'no-duplicate-imports': [
+        'error', { 'includeExports': true }
+      ],
+      'no-console': 0,
       'no-underscore-dangle': 0,
       'no-useless-return': 'off',
-      'no-console': 0,
       'no-restricted-syntax': [
         'error',
         'TSEnumDeclaration'
       ],
-      'no-duplicate-imports': [
-        'error', { 'includeExports': true }
-      ],
+      'no-shadow': [ 0, { 'hoist': 'never' } ],
       'object-curly-spacing': 0,
       'object-shorthand': [ 'error', 'consistent' ],
       'one-var': [ 'error', 'never' ],
