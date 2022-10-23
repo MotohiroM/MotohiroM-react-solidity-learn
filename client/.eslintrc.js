@@ -22,7 +22,7 @@ module.exports = {
       'ecmaFeatures': {
         'jsx': true
       },
-      'ecmaVersion': 'latest',
+      'ecmaVersion': 'es2021',
       'sourceType': 'module',
       'project': [ './tsconfig.json' ]
   },
@@ -52,48 +52,54 @@ module.exports = {
     'import/prefer-default-export': 0,
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/no-noninteractive-element-interactions': 0,
-    'keyword-spacing': [ 'error', {
-      'overrides': {
-        'if': {
-          'before': true,
-          'after': false
-        },
-        'for': {
-          'after': false
-        },
-        'while': {
-          'after': false
-        },
-        'switch': {
-          'after': false
-        },
+    'keyword-spacing': [
+      'error', {
+        'overrides': {
+          'for': {
+            'after': false
+          },
+          'if': {
+            'before': true,
+            'after': false
+          },
+          'switch': {
+            'after': false
+          },
+          'while': {
+            'after': false
+          },
+        }
       }
-    }],
+    ],
     'max-len': 0,
-    'max-lines-per-function': [ 'error', {
+    'max-lines-per-function': [
+      'error', {
         'max': 100,
         'skipBlankLines': true,
         'skipComments': true
       }
     ],
     'multiline-comment-style': 0,
-    'no-duplicate-imports': [
-      'error', { 'includeExports': true }
-    ],
     'no-console': 0,
+    'no-duplicate-imports': [
+      'error', {
+        'includeExports': true
+      }
+    ],
     'no-underscore-dangle': 0,
     'no-useless-return': 'off',
     'no-restricted-syntax': [
-        'error',
-        'TSEnumDeclaration'
+      'error',
+      'TSEnumDeclaration'
     ],
     'object-curly-spacing': 0,
     'object-shorthand': [ 'error', 'consistent' ],
     'one-var': [ 'error', 'never' ],
     'prefer-arrow-callback': 'off',
     'react/function-component-definition': [
-      2,
-      { 'namedComponents': 'arrow-function' }
+      2, {
+        'namedComponents': 'arrow-function'
+      }
     ],
     'react/jsx-no-constructed-context-values': 0,
     'react/no-unescaped-entities': 0,
