@@ -17,7 +17,7 @@ export default {
     clearMocks: true,
 
     // Indicates whether the coverage information should be collected while executing the test
-    collectCoverage: true,
+    collectCoverage: false,
 
     // An array of glob patterns indicating a set of files for which coverage information should be collected
     // collectCoverageFrom: undefined,
@@ -110,9 +110,9 @@ export default {
     // rootDir: undefined,
 
     // A list of paths to directories that Jest should use to search for files in
-    // roots: [
-    //   "<rootDir>"
-    // ],
+    roots: [
+      '<rootDir>/__tests__'
+    ],
 
     // Allows you to use a custom runner instead of Jest's default test runner
     // runner: "jest-runner",
@@ -140,7 +140,7 @@ export default {
     // testLocationInResults: false,
 
     // The glob patterns Jest uses to detect test files
-    testMatch: ['**/tests/react/**/*.[jt]s?(x)', '**/tests/react/?(*.)+(spec|test).[tj]s?(x)'],
+    testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/__tests__/?(*.)+(spec|test).[tj]s?(x)'],
 
     // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
     testPathIgnorePatterns: ['/node_modules/', 'coverage'],
