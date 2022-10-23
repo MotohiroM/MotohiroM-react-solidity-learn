@@ -46,6 +46,7 @@ module.exports = {
       'error',
       15
     ],
+    'default-case-last': 2,
     'func-style': 0,
     'import/extensions': 0,
     'import/prefer-default-export': 0,
@@ -54,15 +55,18 @@ module.exports = {
     'keyword-spacing': [ 'error', {
       'overrides': {
         'if': {
-            'before': true,
-            'after': false
+          'before': true,
+          'after': false
         },
         'for': {
-            'after': false
+          'after': false
         },
         'while': {
-            'after': false
-        }
+          'after': false
+        },
+        'switch': {
+          'after': false
+        },
       }
     }],
     'max-len': 0,
