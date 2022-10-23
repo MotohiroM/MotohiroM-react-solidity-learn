@@ -115,6 +115,19 @@ module.exports = {
     'require-unicode-regexp': 0,
     'sort-keys': 0,
     'sort-imports': 0,
+    '@typescript-eslint/naming-convention': [
+      2,
+      {
+        'selector': 'function',
+        'format': [ 'camelCase' ],
+      },
+      {
+        'selector': 'variable',
+        'types': [ 'boolean' ],
+        'format': [ 'PascalCase' ],
+        'prefix': [ 'is', 'can' ],
+      }
+    ],
     '@typescript-eslint/no-var-requires': 0,
   },
   // 特定のファイルのみルール除外設定を記載
